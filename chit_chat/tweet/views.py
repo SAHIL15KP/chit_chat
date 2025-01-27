@@ -1,5 +1,11 @@
 from django.shortcuts import render
-# import templates
-# Create your views here
+from .models import Tweet 
+from .forms import TweetForm
+from django.shortcuts import get_object_or_404
+
+
+
 def index(request):
     return render(request , "index.html")
+
+
