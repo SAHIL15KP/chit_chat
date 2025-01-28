@@ -10,22 +10,36 @@ chit_chat
 
 <a class="btn btn-primary mb-4" href="{% url 'tweet_create' %}"> create a tweet </a>
 
-<div class="container row gap-3">
-{% for tweet in tweets %}
-
-<div class="card" style="width: 18rem;">
-    {% if tweet.photo %}
-        <img src="{{ tweet.photo.url }}" class="card-img-top" alt="...">
-    {% endif %}
-    <div class="card-body">
-      <h5 class="card-title">{{ tweet.user.username }}</h5>
-      <p class="card-text">{{ tweet.text }}</p>
-      <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
-      <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+<div class="container">
+    <div class="row">
+        {% for tweet in tweets %}
+        <div class="col-md-3 mb-4">
+            <div class="card fixed-height" style="width: 18rem;">
+                {% if tweet.photo %}
+                    <img src="{{ tweet.photo.url }}" class="card-img-top fixed-height" alt="...">
+                {% endif %}
+                <div class="card-body ">
+                    <h5 class="card-title">{{ tweet.user.username }}</h5>
+                    <p class="card-text">{{ tweet.text }}</p>
+                    {% if tweet.user == user %}
+                    <a href="{% url 'tweet_edit' tweet.id %}" class="btn btn-primary">Edit</a>
+                    <a href="{% url 'tweet_delete' tweet.id %}" class="btn btn-danger">Delete</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
     </div>
-  </div>
-
-{% endfor %}
 </div>
+
+<style>
+.fixed-height {
+  height: 25rem; /* Adjust the height as needed */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+</style>
 
 {% endblock %}
